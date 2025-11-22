@@ -6,10 +6,10 @@ This repository provides analytical solvers for common algebraic equations that 
 
 The solvers address four primary types of equations encountered in inverse kinematics:
 
-1. **Single Trigonometric Equation**: \( a \cos \theta + b \sin \theta + c = 0 \)
-2. **Single-Angle Trigonometric System**: \( A \begin{bmatrix} \cos \theta \\ \sin \theta \end{bmatrix} = \mathbf{c} \)
-3. **Two-Angle Trigonometric System**: \( A \begin{bmatrix} \cos \theta_1 \\ \sin \theta_1 \end{bmatrix} + B \begin{bmatrix} \cos \theta_2 \\ \sin \theta_2 \end{bmatrix} = \mathbf{c} \)
-4. **Bilinear Two-Angle System**: \( K \mathbf{m} = \mathbf{0} \), where \( \mathbf{m} = (1, c_1, s_1, c_2, s_2, c_1 c_2, c_1 s_2, s_1 c_2, s_1 s_2)^T \)
+1. **Single Trigonometric Equation**: $a \cos \theta + b \sin \theta + c = 0$
+2. **Single-Angle Trigonometric System**: $A \begin{bmatrix} \cos \theta \\ \sin \theta \end{bmatrix} = \mathbf{c}$
+3. **Two-Angle Trigonometric System**: $A \begin{bmatrix} \cos \theta_1 \\ \sin \theta_1 \end{bmatrix} + B \begin{bmatrix} \cos \theta_2 \\ \sin \theta_2 \end{bmatrix} = \mathbf{c}$
+4. **Bilinear Two-Angle System**: $K \mathbf{m} = \mathbf{0}$, where $\mathbf{m} = (1, c_1, s_1, c_2, s_2, c_1 c_2, c_1 s_2, s_1 c_2, s_1 s_2)^T$
 
 Each solver uses analytical methods (e.g., Weierstrass substitution, resultant elimination) to avoid numerical instabilities and ensure completeness of solutions.
 
