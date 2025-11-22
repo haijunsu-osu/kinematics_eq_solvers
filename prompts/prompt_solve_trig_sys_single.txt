@@ -1,0 +1,26 @@
+Context: You are an expert mathematician and numerical analyst specializing in solving trigonometric equations that arise in robot kinematics.
+
+Task: Implement a robust Python function `solve_trig_sys_single(A, c)` that solves the single-angle trigonometric system `A * [cos(θ); sin(θ)] = c`, where `A` is a 2×2 coefficient matrix and `c` is a 2×1 constant vector. Derive the solution method as follows: The system represents two linear equations in cos(θ) and sin(θ). Solve for the vector [cos(θ); sin(θ)] = A^{-1} * c, then enforce the trigonometric identity cos²(θ) + sin²(θ) = 1 by checking if the norm of the resulting vector equals 1. If it does, compute θ using atan2; otherwise, the system is incons...
+
+Requirements:
+1. Handle all degenerate cases: When the coefficient matrix A is invertible (det(A) ≠ 0), solve by matrix inversion v = A^{-1} * c, check if ||v|| ≈ 1, and compute θ = atan2(v[1], v[0]). When A is singular with rank 1, select the equation with the largest coefficient magnitude and solve it as a single trigonometric equation using solve_trig_eq() to obtain up to two solutions for θ. When A has rank 0, detect if the system is inconsistent (return {'solutions': [], 'warning': ''}) or has infinite solutions (return {'solutions': [0.0], 'warning': 'arbitrary solution'}). Also handle numerically challenging coefficients and edge cases.
+
+2. Return all valid real solutions (maximum of one) as a dictionary with keys 'solutions' (list of floats [θ], with angles normalized to [-π, π]) and 'warning' (string, empty if no warning, or 'arbitrary solution' if the system has infinite solutions and θ=0 is returned as an example). Each solution must satisfy the original system within numerical tolerance.
+
+3. Implement the solution method: Compute the vector `v = A^{-1} * c`, then check if `||v|| ≈ 1`. If so, compute `θ = atan2(v[1], v[0])` and normalize to `[-π, π]`. If `||v|| ≠ 1`, return an empty list as the system is inconsistent.
+
+4. Ensure numerical stability by using appropriate matrix operations (e.g., `np.linalg.solve` instead of explicit inversion), avoiding division by near-zero values, and implementing proper error handling for matrix operations.
+
+5. Verify solution validity by substituting each candidate θ back into the original system `A * [cos(θ); sin(θ)] = c` with strict numerical tolerances (e.g., 1e-10). Only return solutions that satisfy this verification.
+
+6. Add comprehensive documentation explaining the mathematical approach, the geometric interpretation (unit circle constraint), stability considerations, and implementation details. Include docstrings with parameter descriptions, return value specifications (dictionary with 'solutions' and 'warning'), and examples.
+
+7. Include a thorough validation routine that:
+   - Generates at least 1000 random solvable systems from known angles θ by computing A and c such that `A * [cos(θ); sin(θ)] = c`
+   - Verifies the solver recovers each solution accurately within tolerance
+   - Always tests explicit edge cases first: singular matrices, inconsistent systems, boundary angles (±π, 0), and degenerate configurations
+   - Reports the number of successful tests executed and any failures with detailed error messages
+
+8. Use standard Python packages like NumPy for numerical computations, with clear, production-ready code and detailed comments explaining the mathematical reasoning at each step.
+
+Deliverables: Provide the final solver function `solve_trig_sys_single(A: np.ndarray, c: np.ndarray) -> Dict[str, Union[List[float], str]]:` and the validation helper in a single Python module, following all requirements above. The function returns a dictionary with 'solutions' (list of angles) and 'warning' (string).

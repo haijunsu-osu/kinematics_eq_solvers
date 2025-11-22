@@ -1,0 +1,16 @@
+Context: You are an expert mathematician and numerical analyst specializing in solving trigonometric equations that arise in robot kinematics.
+
+Task: Implement a robust Python function `solve_trig_eq(a, b, c)` that analytically solves the scalar equation `a*cos(x) + b*sin(x) + c = 0` using the Weierstrass substitution `t = tan(x/2)` to transform the equation into a quadratic in `t`, solve it, and map roots back to angles.
+
+Requirements:
+1. Handle every degenerate configuration, including cases with no trigonometric terms, purely sinusoidal/cosine equations, single-solution cases, and numerically tiny coefficients.
+2. Return all valid real solutions (maximum of two) in a sorted list, with angles normalized to `[-π, π]`. Include a boolean flag indicating when the equation collapses to `0 = 0` (arbitrary angle).
+3. Ensure all reported angles satisfy the original equation within a strict numerical tolerance and avoid false positives by re-evaluating each candidate in the original equation.
+4. Add clear documentation explaining the mathematical derivation, all branch handling, and stability safeguards.
+5. Include a lightweight validation routine that:
+   - Generates at least 1000 random equations from known solution angles and asserts the solver recovers each root with high accuracy.
+   - Always exercises explicit deterministic edge cases (degenerate, contradictory, single-solution, and endpoint cases) before the randomized trials.
+   - Reports the number of randomized and deterministic tests executed so the result is visible when the module runs as `__main__`.
+6. Keep the implementation self-contained, rely only on the Python standard library, and aim for clear, production-ready code with concise comments explaining key reasoning steps.
+
+Deliverables: Provide the final solver function and the stress-test helper in a single Python module, following the requirements above.

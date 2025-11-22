@@ -1,0 +1,32 @@
+Context: You are an expert mathematician and numerical analyst specializing in solving trigonometric equations that arise in robot kinematics.
+
+Task: Implement a robust Python function `solve_trig_sys(A, B, c)` that solves the coupled trigonometric system `A * [cos(θ₁); sin(θ₁)] + B * [cos(θ₂); sin(θ₂)] = c`, where `A` and `B` are 2×2 coefficient matrices and `c` is a 2×1 constant vector. The implementation must use the method presented in section A.3 of the paper for solving coupled trigonometric systems.
+
+Requirements:
+1. Handle all degenerate cases including singular matrices (where det(B) ≈ 0), inconsistent systems, and numerically challenging coefficients. Return an empty list for inconsistent systems and handle matrix inversion carefully.
+
+2. Return all valid real solutions (maximum of four) as a list of tuples [(θ₁, θ₂), ...], with angles normalized to `[-π, π]`. Each solution pair must satisfy the original system within numerical tolerance.
+
+3. Implement the elimination method from section A.3: Use SymPy or Mathematica during development to derive the symbolic polynomial equations by eliminating trigonometric variables using the identities sin²θ + cos²θ = 1, then hard-code the resulting expressions in the final Python implementation. The major steps are:
+   - Express the system: A·[cos θ₁, sin θ₁]ᵀ + B·[cos θ₂, sin θ₂]ᵀ = c
+   - Solve linearly for the second angle: [cos θ₂, sin θ₂]ᵀ = B⁻¹·(c - A·[cos θ₁, sin θ₁]ᵀ)
+   - Substitute into trigonometric identity: sin²θ₂ + cos²θ₂ = 1 to eliminate θ₂ variables
+   - Convert the resultant equation to a quartic polynomial in t₁ = tan(θ₁/2)
+   - Solve the quartic polynomial for t₁ values and convert back to θ₁ ∈ [-π, π]
+   - For each valid θ₁, compute [cos θ₂, sin θ₂]ᵀ = B⁻¹·(c - A·[cos θ₁, sin θ₁]ᵀ), then θ₂ = atan2(sin θ₂, cos θ₂)
+
+4. Ensure numerical stability by using appropriate matrix operations (e.g., np.linalg.solve instead of explicit inversion), avoiding division by near-zero values, and implementing proper error handling for matrix operations.
+
+5. Verify solution validity by substituting each candidate (θ₁, θ₂) pair back into the original system A·[cos θ₁, sin θ₁]ᵀ + B·[cos θ₂, sin θ₂]ᵀ = c with strict numerical tolerances (e.g., 1e-10). Only return solutions that satisfy this verification.
+
+6. Add comprehensive documentation explaining the mathematical approach from section A.3, the elimination strategy, stability considerations, and implementation details. Include docstrings with parameter descriptions, return value specifications, and examples.
+
+7. Include a thorough validation routine that:
+   - Generates at least 1000 random solvable systems from known angle pairs (θ₁, θ₂) by computing A, B, c from the solution
+   - Verifies the solver recovers each solution accurately within tolerance
+   - Always tests explicit edge cases first: singular matrices, inconsistent systems, boundary angles (±π, 0), and degenerate configurations
+   - Reports the number of successful tests executed and any failures with detailed error messages
+
+8. Use standard Python packages like NumPy for numerical computations, with clear, production-ready code and detailed comments explaining the mathematical reasoning at each step.
+
+Deliverables: Provide the final solver function `solve_trig_sys(A, B, c)` and the validation helper in a single Python module, following all requirements above. The function signature should be: `def solve_trig_sys(A: np.ndarray, B: np.ndarray, c: np.ndarray) -> List[Tuple[float, float]]:`

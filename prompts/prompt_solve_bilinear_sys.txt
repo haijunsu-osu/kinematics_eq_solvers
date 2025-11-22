@@ -1,0 +1,30 @@
+Context: You are an expert mathematician and numerical analyst specializing in solving trigonometric equations that arise in robot kinematics.
+
+Task: Implement a robust Python function `solve_bilinear_sys(K)` that solves the bilinear trigonometric system `K * m = 0`, where `K` is a 2×9 coefficient matrix and `m = [1, cos(θ₁), sin(θ₁), cos(θ₂), sin(θ₂), cos(θ₁)cos(θ₂), cos(θ₁)sin(θ₂), sin(θ₁)cos(θ₂), sin(θ₁)sin(θ₂)]^T`. Derive the solution method by transforming the system into bivariate polynomials using the Weierstrass substitution `t₁ = tan(θ₁/2)`, `t₂ = tan(θ₂/2)`, then eliminating one variable using the Sylvester resultant to obtain a polynomial in the remaining variable, solving it, and back-substituting to find all valid angle pairs.
+
+Requirements:
+1. Handle all degenerate cases including when M₂ is singular or ill-conditioned (use generalized eigenvalue approach), inconsistent systems, and numerically challenging coefficients. Return an empty list for inconsistent systems.
+
+2. Return all valid real solutions (maximum of eight) as a list of tuples [(θ₁, θ₂), ...], with angles normalized to `[-π, π]`. Each solution pair must satisfy the original system within numerical tolerance.
+
+3. Implement the solution method: 
+   - Substitute trigonometric identities using `t₁ = tan(θ₁/2)`, `t₂ = tan(θ₂/2)` to express cos(θ) = (1-t²)/(1+t²), sin(θ) = 2t/(1+t²), etc., converting the equations to polynomials p1(t₁, t₂) = 0 and p2(t₁, t₂) = 0.
+   - Construct the Sylvester matrix polynomial M(t₁) = M₀ + M₁ t₁ + M₂ t₁², where M₀, M₁, M₂ are 4×4 matrices from the coefficients of p1 and p2.
+   - Solve |M(t₁)| = 0 using generalized eigenvalue methods: If M₂ is well-conditioned, construct the companion matrix C = [[-M₂⁻¹ M₁, -M₂⁻¹ M₀], [I, 0]] and find eigenvalues t₁. Otherwise, solve the generalized eigenvalue problem A v = λ B v with A = [[-M₁, -M₀], [I, 0]], B = [[M₂, 0], [0, I]], where real λ are t₁ (infinite/large λ correspond to θ₁ = ±π/2).
+   - For each t₁, convert to θ₁ ∈ [-π, π], then to (cos θ₁, sin θ₁), substitute into the original equations, and solve for θ₂ using solve_trig_sys_single().
+
+4. Ensure numerical stability by using appropriate polynomial operations, avoiding division by near-zero values, and implementing proper error handling for matrix computations and root finding.
+
+5. Verify solution validity by substituting each candidate (θ₁, θ₂) pair back into the original system `K * m = 0` with strict numerical tolerances (e.g., 1e-10). Only return solutions that satisfy this verification.
+
+6. Add comprehensive documentation explaining the mathematical approach (Weierstrass substitution, Sylvester resultant), the elimination strategy, stability considerations, degenerate case handling, and implementation details. Include docstrings with parameter descriptions, return value specifications, and examples.
+
+7. Include a thorough validation routine that:
+   - Generates at least 1000 random solvable systems from known angle pairs (θ₁, θ₂) by computing K such that `K * m = 0`
+   - Verifies the solver recovers each solution accurately within tolerance
+   - Always tests explicit edge cases first: singular or ill-conditioned M₂ matrices, inconsistent systems, boundary angles (±π, 0), and degenerate configurations
+   - Reports the number of successful tests executed and any failures with detailed error messages
+
+8. Use standard Python packages like NumPy for numerical computations, and consider SymPy for symbolic polynomial operations if needed, with clear, production-ready code and detailed comments explaining the mathematical reasoning at each step.
+
+Deliverables: Provide the final solver function `solve_bilinear_sys(K: np.ndarray) -> List[Tuple[float, float]]:` and the validation helper in a single Python module, following all requirements above.
