@@ -24,7 +24,6 @@ paper/texput.log
 
 # Ignore all files in paper/ except the PDF
 paper/*
-!paper/eq_solvers.pdf
 
 # Python
 __pycache__/
