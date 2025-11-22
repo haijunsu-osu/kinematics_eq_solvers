@@ -1,24 +1,30 @@
-# LaTeX auxiliary files
-*.aux
-*.bbl
-*.blg
-*.log
-*.out
-*.toc
-*.lof
-*.lot
-*.fdb_latexmk
-*.fls
-*.synctex.gz
-*.pdfsync
-*.synctex(busy)
-*.synctex.gz(busy)
-*.pdf
-*.dvi
-*.ps
-*.nav
-*.snm
-*.vrb
+# LaTeX auxiliary files in paper/
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.lof
+paper/*.lot
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
+paper/*.pdfsync
+paper/*.synctex(busy)
+paper/*.synctex.gz(busy)
+paper/*.dvi
+paper/*.ps
+paper/*.nav
+paper/*.snm
+paper/*.vrb
+paper/preprint.sty
+paper/references.bib
+paper/texput.log
+
+# Ignore all files in paper/ except the PDF
+paper/*
+!paper/eq_solvers.pdf
 
 # Python
 __pycache__/
@@ -58,3 +64,4 @@ Thumbs.db
 
 # Temporary files
 texput.log
+
