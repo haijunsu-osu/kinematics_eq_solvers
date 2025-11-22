@@ -22,8 +22,8 @@ paper/preprint.sty
 paper/references.bib
 paper/texput.log
 
-# Ignore all files in paper/ except the PDF
-paper/*
+# Ignore entire paper folder
+paper/
 
 # Python
 __pycache__/
