@@ -80,27 +80,30 @@ solving systems of nonlinear algebraic equations is the very core of numerouse k
 \begin{itemize}[leftmargin=10pt]
 \item \textbf{Single trigonometric equation:} 
 
-$a \cos\theta + b \sin\theta + c = 0$
+$$a \cos\theta + b \sin\theta + c = 0$$
 
 \item \textbf{Single-angle trigonometric system:} 
 
 $$A\begin{bmatrix}\cos\theta \\ \sin\theta\end{bmatrix} = \mathbf{c}$$
+
 \item \textbf{Two-angle trigonometric system:} 
 
-$A\begin{bmatrix}\cos\theta_1 \\ \sin\theta_1\end{bmatrix} + B\begin{bmatrix}\cos\theta_2 \\ \sin\theta_2\end{bmatrix} = \mathbf{c}$
+$$A\begin{bmatrix}\cos\theta_1 \\ \sin\theta_1\end{bmatrix} + B\begin{bmatrix}\cos\theta_2 \\ \sin\theta_2\end{bmatrix} = \mathbf{c}$$
 
 \item \textbf{Bilinear two-angle system:} 
 
-$K\mathbf{m} = \mathbf{0},\;\mathbf{m} = (1, c_1, s_1, c_2, s_2, c_1 c_2, c_1 s_2, s_1 c_2, s_1 s_2)^T$
+$$K\mathbf{m} = \mathbf{0},\;\mathbf{m} = (1, c_1, s_1, c_2, s_2, c_1 c_2, c_1 s_2, s_1 c_2, s_1 s_2)^T$$
 \end{itemize}
 
-This paper presents analytical solvers for these equation types, providing closed-form solutions where possible and robust numerical methods otherwise. The solvers handle general coefficients, manage singularities, and enumerate all real solutions. They serve as building blocks for numerous robotics problems. The development of these solvers leverages symbolic computation tools like Mathematica and numerical libraries in Python. We emphasize robustness, efficiency, and completeness in finding all solutions with the assistance of Large Language Models. 
+This paper presents analytical solvers for these equation types, providing closed-form solutions where possible and robust numerical methods otherwise. The solvers handle general coefficients, manage singularities, and enumerate all real solutions. They serve as building blocks for numerous robotics problems. The development of these solvers leverages symbolic computation tools like Mathematica and numerical libraries in Python. We emphasize robustness, efficiency, and completeness in finding all solutions with the assistance of Large Language Models (LLM) based coding agents. 
+
+
+
+%Here we detail the helper functions developed to solve common trigonometric equation types encountered in inverse kinematics derivations.  Degenerative cases were carefully handled to avoid singularities and ensure all valid solutions are found. Extensive stress testing with random coefficients confirmed robustness and accuracy. These building blocks underpin the higher-level IK solvers presented in this paper.
 
 \section{Trigonometric Equation Solver}
 \label{sec:trig_eq}
 
-
-Here we detail the helper functions developed to solve common trigonometric equation types encountered in inverse kinematics derivations.  Degenerative cases were carefully handled to avoid singularities and ensure all valid solutions are found. Extensive stress testing with random coefficients confirmed robustness and accuracy. These building blocks underpin the higher-level IK solvers presented in this paper.
 The \texttt{solve\_trig\_eq()} function solves the trigonometric equation represents a linear combination of sine and cosine terms:
 \[a \cos \theta + b \sin \theta + c = 0\]
     
