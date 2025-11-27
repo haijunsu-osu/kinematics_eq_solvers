@@ -32,7 +32,7 @@ Each solver uses analytical methods (e.g., Weierstrass substitution, resultant e
   - `prompt_solve_trig_eq.txt`
   - `prompt_solve_trig_sys_single.txt`
   - `prompt_solve_trig_sys.txt`
-- `paper/eq_solvers.pdf`: Compiled PDF of the paper.
+
 - Other LaTeX auxiliary files.
 
 ## Usage
@@ -74,7 +74,11 @@ If you use this work, please cite the paper:
   title={Analytical Solvers for Common Algebraic Equations Arising in Kinematics Problems},
   author={Su, Hai-Jun},
   journal={arXiv preprint},
-  year={2025}
+  year={2025},
+  eprint={2509.01010},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2509.01010}, 
 }
 ```
 
