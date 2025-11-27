@@ -67,7 +67,7 @@ The paper includes extensive benchmarks:
 
 ## Citation
 
-If you use this work, please cite the paper published in [arXiv](https://doi.org/10.48550/arXiv.2509.01010):
+If you use this work, please cite the paper published in [arXiv](https://arxiv.org/pdf/2509.01010):
 
 ```
 @article{su2025analytical,
